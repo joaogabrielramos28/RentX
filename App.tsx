@@ -12,6 +12,7 @@ import { Home } from "./src/Screens/Home";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/Styles/theme";
 import { CarDetails } from "./src/Screens/CarDetails";
+import { Scheduling } from "./src/Screens/Scheduling";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CarDetails />
+      <Scheduling />
     </ThemeProvider>
   );
 }
