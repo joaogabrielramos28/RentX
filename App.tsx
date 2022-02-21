@@ -12,6 +12,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./src/Styles/theme";
 
 import { SchedulingComplete } from "./src/Screens/SchedulingComplete";
+import { Routes } from "./src/Routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedulingComplete />
+      <Routes />
     </ThemeProvider>
   );
 }
