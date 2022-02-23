@@ -41,19 +41,27 @@ import {
 import { Button } from "../../Components/Button";
 import { useTheme } from "styled-components";
 import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { CarDTO } from "../../DTOs/CarDTO";
+interface Params {
+  car: CarDTO;
+}
 export function SchedulingDetails() {
   const theme = useTheme();
-  const { navigate } = useNavigation<any>();
-
+  const { navigate, goBack } = useNavigation<any>();
+  const route = useRoute();
+  const { car } = route.params as Params;
   function handleCompleteRent() {
     navigate("SchedulingComplete");
+  }
+
+  function handleBack() {
+    goBack();
   }
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </Header>
 
       <CarImages>
