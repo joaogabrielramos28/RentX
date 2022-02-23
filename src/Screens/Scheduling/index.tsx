@@ -21,10 +21,14 @@ import { useNavigation } from "@react-navigation/native";
 
 export function Scheduling() {
   const theme = useTheme();
-  const { navigate } = useNavigation<any>();
+  const { navigate, goBack } = useNavigation<any>();
 
   function handleSchedulingDetails() {
     navigate("SchedulingDetails");
+  }
+
+  function handleBack() {
+    goBack();
   }
   return (
     <Container>
@@ -34,7 +38,7 @@ export function Scheduling() {
           translucent
           backgroundColor="transparent"
         />
-        <BackButton onPress={() => {}} color={theme.colors.shape} />
+        <BackButton onPress={handleBack} color={theme.colors.shape} />
 
         <Title>
           Escolha uma {"\n"}
