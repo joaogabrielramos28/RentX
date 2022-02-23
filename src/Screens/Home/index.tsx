@@ -29,12 +29,11 @@ export function Home() {
     }
     fetchCars();
   }, []);
-  console.log(loading);
 
   const { navigate } = useNavigation<any>();
 
-  function handleCarDetails() {
-    navigate("CarDetails");
+  function handleCarDetails(car: CarDTO) {
+    navigate("CarDetails", { car });
   }
 
   return (
@@ -58,7 +57,7 @@ export function Home() {
           data={cars}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
