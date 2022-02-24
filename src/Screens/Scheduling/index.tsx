@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from "styled-components";
-import { Alert, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import ArrowSvg from "../../Assets/arrow.svg";
 
 import {
@@ -48,14 +48,10 @@ export function Scheduling() {
   const { car } = route.params as Params;
 
   function handleSchedulingDetails() {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      Alert.alert("Selecione o intervalo para alugar.");
-    } else {
-      navigate("SchedulingDetails", {
-        car,
-        date: Object.keys(markedDates),
-      });
-    }
+    navigate("SchedulingDetails", {
+      car,
+      date: Object.keys(markedDates),
+    });
   }
 
   function handleBack() {
@@ -128,7 +124,11 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleSchedulingDetails} />
+        <Button
+          title="Confirmar"
+          onPress={handleSchedulingDetails}
+          enabled={!!rentalPeriod.endFormatted}
+        />
       </Footer>
     </Container>
   );

@@ -31,7 +31,7 @@ import {
 } from "./styles";
 
 import { Button } from "../../Components/Button";
-import { keyframes, useTheme } from "styled-components";
+import { useTheme } from "styled-components";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { CarDTO } from "../../DTOs/CarDTO";
@@ -51,6 +51,7 @@ interface RentalPeriod {
 }
 
 export function SchedulingDetails() {
+  const [loading, setLoading] = useState(false);
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   );
@@ -62,6 +63,7 @@ export function SchedulingDetails() {
   const rentTotal = Number(date.length * car.rent.price);
 
   async function handleCompleteRent() {
+    setLoading(true);
     const scheduleByCar = await api.get(`/schedules_bycars/${car.id}`);
 
     const CheckIfDateIsNotAvailable = String(
@@ -80,15 +82,29 @@ export function SchedulingDetails() {
       ...date,
     ];
 
+    await api.post("schedules_byuser", {
+      user_id: 1,
+      car,
+      startDate: format(getPlatformDate(new Date(date[0])), "dd/MM/yyyy"),
+      endDate: format(
+        getPlatformDate(new Date(date[date.length - 1])),
+        "dd/MM/yyyy"
+      ),
+    });
+
     api
       .put(`/schedules_bycars/${car.id}`, {
         id: car.id,
         unavailable_dates,
       })
       .then(() => navigate("SchedulingComplete"))
-      .catch(() =>
-        Alert.alert("Agendamento", "Não foi possível realizar seu agendamento!")
-      );
+      .catch(() => {
+        setLoading(false);
+        Alert.alert(
+          "Agendamento",
+          "Não foi possível realizar seu agendamento!"
+        );
+      });
   }
 
   function handleBack() {
@@ -174,6 +190,8 @@ export function SchedulingDetails() {
           title="Alugar agora"
           color={theme.colors.success}
           onPress={handleCompleteRent}
+          enabled={!loading}
+          loading={loading}
         />
       </Footer>
     </Container>
