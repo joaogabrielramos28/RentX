@@ -11,7 +11,6 @@ import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/Styles/theme";
 
-import { SchedulingComplete } from "./src/Screens/SchedulingComplete";
 import { Routes } from "./src/Routes";
 
 export default function App() {
