@@ -7,11 +7,14 @@ import Animated, {
   withTiming,
   interpolate,
   Extrapolate,
+  runOnJS,
 } from "react-native-reanimated";
 
 import { Container } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 export function Splash() {
+  const { navigate } = useNavigation<any>();
   const splashAnimation = useSharedValue(0);
 
   const brandStyle = useAnimatedStyle(() => {
@@ -45,8 +48,15 @@ export function Splash() {
     };
   });
 
+  function StartApp() {
+    navigate("Home");
+  }
+
   useEffect(() => {
-    splashAnimation.value = withTiming(50, { duration: 1000 });
+    splashAnimation.value = withTiming(50, { duration: 1000 }, () => {
+      "worklet";
+      runOnJS(StartApp)();
+    });
   }, []);
 
   return (
