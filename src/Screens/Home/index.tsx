@@ -10,7 +10,7 @@ import { Car } from "../../Components/Car";
 
 import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
 import { CarDTO } from "../../DTOs/CarDTO";
-import { Load } from "../../Components/Load";
+import { LoadAnimation } from "../../Components/LoadAnimation";
 import theme from "../../Styles/theme";
 import Animated, {
   useAnimatedStyle,
@@ -107,7 +107,7 @@ export function Home() {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <CarList
           data={cars}
